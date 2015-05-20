@@ -1,0 +1,64 @@
+-OWASP
+
+OWASP risk factors
+
+--Injection
+
+Parameters in the querystring e.g. {product=1 or 1=1}, {product=(Select name from sysobjects where id=(select top 1 id from (select top 3 id from sysobjects where xtype=char(85) order by id asc)))}
+
+Input can be from cookies, request header, form post, query string, external services, own database data imports.
+
+Principle of least privilege e.g. no access to write etc, better only access to read tables even better only runs stored procedures.
+
+Whitelist validation - data entering the system
+Approaches - type conversion e.g. integer, date
+			 Regular expressions - for strings e.g email addresses, phone numbers
+			 List of known good values
+
+Use an ORM e.g. entity framework, nhibernate
+			 
+Stored Procedure a vulnerable e.g. dynamic sql in a stored procedure more secure use sp_executesql to parametrisation of sql 
+			 
+Havijj third party to tool to test your site for sql injection
+
+--Cross site Scripting XXS
+
+https://technet.microsoft.com/en-us/library/cc512662.aspx
+
+Reflective XSS
+Reflection of query e.g. search term - to the page putting code on to the page e.g. script tag. Real example samy myspace
+Encode - HtmlEncoding different encode for different lanaguages e.g. javascript, css
+Use supported encoding e.g. AntiXssEncoder
+Password - <script> ok mvc - decorate [AllowHtml] on property on model
+
+Persistence XSS
+
+Database records e.g. add to a list and then get all
+
+--Broken Authenication and Session Management
+
+Session Id not in url because email url or posting url on facebook for example
+Be careful of cookies e.g. http only, secure https
+Use tried and tested frameworks e.g. forms authentication options sliding authentication or fixed 
+Session timeout not to long
+
+--Insecure direct object reference
+
+e.g. customerid=1 in query string retrieve records
+use indirect reference maps abstraction (example indirectreference\IndirectRefMap.cs e.g. use id=id.GetIndirectReference())
+obfuscation via random surrogate keys e.g. use GUID for id - Guid for db are expensive
+check user is allowed to see data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
